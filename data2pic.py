@@ -68,7 +68,7 @@ def draw_7_8(df):
     # 超级电容的SOC：两种方法
     ax2 = plt.subplot(no_pic,1,2)
     plt.grid(True, linestyle = "-.", color = "k", linewidth = "1")
-    plt.axis([0, 500, 75, 95])
+    plt.axis([0, 500, 80, 87])
 #    plt.axis([0, 500, 80, 89])
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
@@ -77,6 +77,8 @@ def draw_7_8(df):
     SC_SOC = plt.plot(X_1,Y_1, 'y.', X_2,Y_2, 'r--',linewidth=2)
     plt.legend(handles = SC_SOC, labels = ['SC_SOC proposed', 'SC_SOC conventional'], loc = 'best',fontsize=15)
     ax2.set_ylabel('SOC[%]', fontsize=20)
+    plt.axhspan(84.5, 85.5, facecolor='g', alpha=0.5)
+
 
     # 超级电容的电流：两种方法
     ax3 = plt.subplot(no_pic,1,3)
@@ -142,6 +144,8 @@ def draw_7_8(df):
     bat_SOC = plt.plot(X_1,Y_1, 'y--', X_2,Y_2, 'r--',linewidth=2)
     plt.legend(handles = bat_SOC, labels = ['bat_SOC proposed', 'bat_SOC conventional'], loc = 'best',fontsize=15)
     ax7.set_ylabel('SOC[%]', fontsize=20)
+    ax7.set_xlabel('Time[s]', fontsize=20)
+
 
     plt.show()
     
@@ -165,24 +169,26 @@ def draw_6(NYCC_df,LA92_df):
     # LA92和 NYCC 的 speed
     ax1 = plt.subplot(no_pic,1,1)
     plt.grid(True, linestyle = "-.", color = "k", linewidth = "1")
-    plt.axis([0, 1435.1, 0, 120])
+    plt.axis([0, 1435.1, 0, 110])
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
     I = plt.plot(t1, df['LA92  speed[km/h]'].values, 'y', t1, df['NYCC  speed[km/h]'].values, 'r--',linewidth=3)
 #    ax1.set_xlabel('Time', fontsize=20)
     plt.legend(handles = I, labels = ['LA92', 'NYCC'], loc = 'best',fontsize=15)
     ax1.set_ylabel('Speed[Km/h]', fontsize=20)
+    plt.axvspan(0, 580, facecolor='#3CB371', alpha=5)
 
     # LA92和 NYCC 的 power
     ax2 = plt.subplot(no_pic,1,2)
     plt.grid(True, linestyle = "-.", color = "k", linewidth = "1")
-    plt.axis([0, 1435.1, -60, 40])
+    plt.axis([0, 1435.1, -80, 40])
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
     SC_SOC = plt.plot(t1, df['LA92  power[kw]'].values, 'y', t1, df['NYCC  power[kw]'].values, 'r--',linewidth=3)
     plt.legend(handles = SC_SOC, labels = ['LA92', 'NYCC'], loc = 'best',fontsize=15)
     ax2.set_xlabel('Time[s]', fontsize=20)
     ax2.set_ylabel('Power[Kw]', fontsize=20)
+    plt.axvspan(0, 580, facecolor='#3CB371', alpha=5)
     plt.show()
     
 def add_guass(X_array,Y_array,sigma):

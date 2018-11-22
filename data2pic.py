@@ -36,7 +36,7 @@ from matplotlib import pyplot as plt
 
 def load_data_df(drivingcycle):
     vs_df = pd.read_csv(drivingcycle)
-    vs_df = vs_df.head(5000)
+#    vs_df = vs_df.head(5000)
 #    print(vs_df.columns)
 
     vs_df['v_bus'] = vs_df['EVPower']/vs_df['I_Load']
@@ -156,15 +156,16 @@ def draw_6(NYCC_df,LA92_df):
     df.index = LA92_df[['time']]
     df.columns = ['LA92  speed[km/h]','NYCC  speed[km/h]','LA92  power[kw]','NYCC  power[kw]']
     
-    t1 = np.arange(0, 500, 0.1)
+    t1 = np.arange(0, 1435.1, 0.1)
+    t2 = np.arange(0, 598.1, 0.1)
 
-    plt.figure(figsize = (15,5))
+    plt.figure(figsize = (15,8))
 
     no_pic = 2
     # LA92和 NYCC 的 speed
     ax1 = plt.subplot(no_pic,1,1)
     plt.grid(True, linestyle = "-.", color = "k", linewidth = "1")
-    plt.axis([0, 500, 0, 120])
+    plt.axis([0, 1435.1, 0, 120])
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
     I = plt.plot(t1, df['LA92  speed[km/h]'].values, 'y', t1, df['NYCC  speed[km/h]'].values, 'r--',linewidth=3)
@@ -175,7 +176,7 @@ def draw_6(NYCC_df,LA92_df):
     # LA92和 NYCC 的 power
     ax2 = plt.subplot(no_pic,1,2)
     plt.grid(True, linestyle = "-.", color = "k", linewidth = "1")
-    plt.axis([0, 500, -60, 40])
+    plt.axis([0, 1435.1, -60, 40])
     plt.xticks(fontsize=15)
     plt.yticks(fontsize=15)
     SC_SOC = plt.plot(t1, df['LA92  power[kw]'].values, 'y', t1, df['NYCC  power[kw]'].values, 'r--',linewidth=3)
@@ -198,11 +199,15 @@ if __name__ == '__main__' :
     #获取路况的数据。功率放缩过，缩小了13.2倍
     NYCC_df = load_data_df("NYCC.csv")
     LA92_df = load_data_df("LA92.csv")
+    print(NYCC_df.shape,LA92_df.shape)
     # 产出图6
     draw_6(NYCC_df,LA92_df)
+
     # 产出图7
+    LA92_df = LA92_df.head(5000)
     draw_7_8(LA92_df)
     # 产出图8
+    NYCC_df = NYCC_df.head(5000)
     draw_7_8(NYCC_df)
     # todo
     # 可以用台式机跑哇？

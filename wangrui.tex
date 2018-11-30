@@ -1,0 +1,938 @@
+\documentclass[energies,article,submit,moreauthors,pdftex,10pt,a4paper]{Definitions/mdpi} 
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. If eps figures are used, remove the option pdftex and use LaTeX and dvi2pdf.
+
+%=================================================================
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{xx}
+\issuenum{1}
+\articlenumber{5}
+\pubyear{2018}
+\copyrightyear{2018}
+%\externaleditor{Academic Editor: name}
+\history{Received: date; Accepted: date; Published: date}
+%\updates{yes} % If there is an update available, un-comment this line
+
+%% MDPI internal command: uncomment if new journal that already uses continuous page numbers 
+%\continuouspages{yes}
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, calc, indentfirst, fancyhdr, graphicx, lastpage, ifthen, lineno, float, amsmath, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, amsthm, hyphenat, natbib, hyperref, footmisc, geometry, caption, url, mdframed, tabto, soul, multirow, microtype, tikz
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{caption} %新增调用的宏包
+\usepackage{bigstrut}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+
+%=================================================================
+%% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{A Real-time Layer-adaptive Wavelet Transform Strategy for Hybrid Energy Storage System of EVs}
+
+% Authors, for the paper (add full first names)
+\Author{Rui Wang $^{1,\dagger,\ddagger}$, Jun Peng $^{1,\ddagger}$, Hongtao Liao $^{1,\ddagger}$ Yanhui Zhou $^{1,\ddagger}$, Heng Li $^{1,\ddagger}$ and Zhiwu Huang $^{2,}$*}
+
+% Authors, for metadata in PDF
+\AuthorNames{Firstname Lastname, Firstname Lastname and Firstname Lastname}
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%
+$^{1}$ \quad Affiliation 1; e-mail@e-mail.com\\
+$^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
+
+% Contact information of the corresponding author
+\corres{Correspondence: e-mail@e-mail.com; Tel.: +x-xxx-xxx-xxxx}
+
+% Current address and/or shared authorship
+\firstnote{Current address: Affiliation 3} 
+\secondnote{These authors contributed equally to this work.}
+
+% Abstract (Do not insert blank lines, i.e. \\) 
+\abstract{
+% 直接点出：本文提出一种策略以具体应对负载功率需求中变化的高频。
+In this paper, a real-time Layer-adaptive energy distribution strategy is proposed to specifically distribute high frequency components in load demand power for EVs with a hybrid energy storage system combining batteries and supercapacitors.
+%在提出的方法中通过将超级电容的使用空间分为7种情况来自适应确得到小波分解的层数
+In the proposed method, the levels of wavelet decomposition are adaptively obtained by dividing the operate zone of supercapacitors into seven cases to split the high-frequency power  to supercapacitors and low-frequency power to batteries.
+%首先超级电容 SOC 的使用程度被比较当采用不同分解层数的小波转换时
+Firstly, the use degree of supercapacitors SOC is compared when using wavelet transform with different decomposition layers.
+%然后基于
+seven operation zones of supercapacitors are determined based on the SOCs of  supercapacitors and batteries, and the  power load demand.
+%然后根据
+the adaptive-level wavelet transform strategy is implemented  according to the operation zones of supercapacitors.
+%具体地，采用了一种基于规则的方法分析了电池和超级电容的SOC和负载功率需求.
+The proposed strategy can guarantee the SoC of supercapacitors work in its predefined SoC range without the knowledge of future road conditions. An experiment testbed is built to verify the effectiveness of the proposed method. Extensive experiment results show that the proposed method provides a better real-time energy sharing between supercapacitors and batteries when compared with the existing methods on LA92 dynamometer driving schedule and the New York city cycle.
+}
+
+% Keywords
+\keyword{wavelet transform, real-time, electric vehicles, energy management system}
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences:
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data:
+%\dataset{DOI number or link to the deposited data set in cases where the data set is published or set to be published separately. If the data set is submitted and will be published as a supplement to this paper in the journal Data, this field will be filled by the editors of the journal. In this case, please make sure to submit the data set as a supplement when entering your manuscript into our manuscript editorial system.}
+
+%\datasetlicense{license under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%\setcounter{secnumdepth}{4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only for the journal Gels: Please place the Experimental Section after the Conclusions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setcounter{section}{-1} %% Remove this when starting to work on the template.
+%\section{How to Use this Template}
+%The template details the sections that can be used in a manuscript. Note that the order and names of article sections may differ from the requirements of the journal (e.g., the positioning of the Materials and Methods section). Please check the instructions for authors page of the journal to verify the correct order and names. For any questions, please contact the editorial office of the journal or support@mdpi.com. For LaTeX related questions please contact Janine Daum at latex-support@mdpi.com.
+%The order of the section titles is: Introduction, Materials and Methods, Results, Discussion, Conclusions for these journals: aerospace,algorithms,antibodies,antioxidants,atmosphere,axioms,biomedicines,carbon,crystals,designs,diagnostics,environments,fermentation,fluids,forests,fractalfract,informatics,information,inventions,jfmk,jrfm,lubricants,neonatalscreening,neuroglia,particles,pharmaceutics,polymers,processes,technologies,viruses,vision
+
+\section{Introduction}
+Technologies adopted in most electric vehicles are diverse, but they only employ rechargeable batteries. The performance of battery energy management systems relies on manufacturing technology and specific application scenarios \cite{IEEEhowto:intro1, IEEEhowto:intro2}. Therefore, batteries are highly vulnerable to peak and turbulent energy demand caused by changeable driving road and traffic conditions which compromise on battery life, performance and battery aging	 \cite{IEEEhowto:intro3}.
+
+%为了解决这些问题，一个解决方案是同时使用电池和超级电容器来形成混合能量存储系统（HESS），其从超级电容器作为用于波动电力需求的缓冲动力单元。 HESS已经在许多文献中被提出，它们将电池和超级电容器结合起来，考虑到它们的互补特性。电池被认为是高能量储存器，超级电容器被认为是HESS 中的高功率储存器，可以达到更高的实用性，例如更长的行驶里程，更好的加速和反馈制动性能。 HESS将电力需求的低频内容转化为电池，并将电力需求的高频内容转化为超级电容器。 电源的分离可以有效保护电池的使用寿命。
+To address these problems, one solution is to employ batteries and supercapacitors simultaneously to form a hybrid energy storage system (HESS) which makes a profit from supercapacitors as a buffer power unit for fluctuating power demand. HESS has been proposed in many literatures \cite{IEEEhowto:intro4, IEEEhowto:intro5,  IEEEhowto:intro6}, which combine batteries and supercapacitors with considering their complementary characteristics. Batteries are considered as high energy storage and supercapacitors are considered as high power storage in HESS which can achieve a higher degree of practicality, such as longer driving range, better performance of acceleration and feedback brake. HESS routes the low frequency content of power demand into batteries and the high frequency content into supercapacitors. The separation of power can effectively protect battery life.
+
+%HESS有三种。
+In general, a HESS topology can be categorized three major types: the passive topology, the semi-active topology and fully active topology \cite{IEEEhowto:intro7}. Passive topology is the simplest and lowest-cost topology. The typical characteristic is the direct connection between batteries and supercapacitors in parallel and directly coupled to DC bus \cite{IEEEhowto:intro8, IEEEhowto:intro9,IEEEhowto:intro10}. Although this topology is easy to implement in electric vehicles, the supercapacitors work as a low-pass filter and the voltage of supercapacitors is limited which result in the low efficiency of supercapacitors.
+In the semi-active topology, one DC/DC converter is used to connect batteries and supercapacitors \cite{IEEEhowto:intro14, IEEEhowto:intro15}. The DC/DC converter permits the voltage of batteries to be different from that of supercapacitors.  This topology improves the flexibility and performance of system, meanwhile the system cost is reduced.
+Fully active topology employs two DC/DC converters to decouple the batteries and supercapacitors with DC bus which meet the satisfactory control performance owning to its flexibility of the voltage range in supercapacitors \cite{IEEEhowto:intro11, IEEEhowto:intro12, IEEEhowto:intro13}. Nevertheless, this topology demands compromise in terms of cost, and efficiency weight volume.
+
+%电动汽车混合能源系统中的能量分配是决定电动汽车行驶里程的关键因素，对于提升锂电池使用寿命和系统的整体性能尤为重要，已经提出了许多种实用的能量分配方案。主要分为两类
+% 基于优化的，全局最优，一些常用的优化方法列举。动态规划/粒子群。列举文献。总结缺点，耗时，动态规划方法需要路况和负载需求的先验知识，如需要数学模型来计算最优功率分配策略。
+%实时控制策略如基于数据的啊，基于优化的啊，都需要很大的计算量。
+% 基于规则的，基于经验。实时。列举文献。总结需要负载的先验知识。
+% 基于分频的，列举几篇。缺点：截止频率啥的。
+%为了解决以上的问题，本文提出了什么。主要的方法和贡献总结如下。
+The energy distribution in hybrid energy system of electric vehicles is a key factor that determines the mileage of electric vehicles \cite{IEEEhowto:intro16}. It is particularly important to improve the life cycles of battery and the overall performance of the HESS.
+%电池具有能量密度高、功率密度低的特点，而超级电容具有功率密度高、能量密度低的特点，因此策略应该尽量将低频的功率分配给电池而高频频率分给超级电容。
+Batteries have the characteristics of high energy density and low power density, while supercapacitors have the characteristics of high power density and low energy density. Therefore, the energy distribution strategies should distribute the low frequency power to batteries and the high frequency to supercapacitor.
+ Many HESS control strategies have been proposed, which are mainly divided into two categories, i.e., off-line approaches and real-time approaches.
+ 
+ % 离线的方法一般都是基于优化的方法。
+Off-line approaches employ advanced optimization algorithms, such as dynamic programming, genetic algorithm, and particle swarm optimization\cite{IEEEhowto:intro27,IEEEhowto:intro28,IEEEhowto:intro29}. The literature \cite{IEEEhowto:intro7} adopts genetic algorithm to solve multi-objective optimization problems, minimizing the total loss of HESS and battery capacity simultaneously. 
+The literature \cite{IEEEhowto:intro26} proposed a optimization strategy to achieve the minimization of the magnitude/fluctuation of the current flowing in and out of the battery
+and the energy loss seen by the supercapacitors. 
+Unlike the real-time approaches, optimization algorithms are much more complex, which require heavy computation capability.
+
+Real-time approaches include rule-based methods and frequency-based methods, etc.
+%基于规则的方法控制
+Rule-based approach controls the energy flow in the HESS based on rules derived from expert experiences. Rule-based approach can be further divided into deterministic rules-based approach and fuzzy rules-based approach. The typical characteristic of deterministic rules-based approach is the "if-then-else" type paradigm. The literature \cite{IEEEhowto:intro16} designs the controller based on the sign and threshold of load power demand and the energy flow between supercapacitor and battery. The literature \cite{IEEEhowto:intro12} proposed a rule-based controller which considers the power demand of load and the SOCs of battery and supercapacitor simultaneously. However, these rules are designed based on the initial state of the hybrid energy system and can not accurately reflect the conditions of the system components after a long period of operation.
+Fuzzy rule-based approach defines the rules based on empirical evidences and expertise \cite{IEEEhowto:intro18}. The membership functions and fuzzy-rules determine the transition between these rules. Compared with the rule-based approach,
+ fuzzy rules-based approach distributes the current to the batteries more smoothly \cite{IEEEhowto:intro19}.
+%因此， 基于规则的方法虽然简单易于实现，计算效率高，可以实现实时的功率分配，但需要路况和负载需求的先验知识，没有考虑负载需求中的频率成分，对电池寿命有损害。
+Therefore, the rule-based method is simple and easy to implement and can achieve real-time power distribution. However, it requires prior knowledge of road conditions and load demands, and does not consider the frequency components in the load demand, which is detrimental to battery life.
+
+%文献30考虑了考虑了负载需求中的高低频成分，采用滤波器实现分频，滤波器的截止频率在三个候选截止频率中进行切换实现频率分离，但具体情况下的截止频率仍是是固定的，没有考虑具体情况下负载功率的具体变化。而采用小波分解进行频率分解时，低频成分随着具体的负载功率需求而改变。
+Frequency-based approach methods such as frequency separation method
+\cite{IEEEhowto:intro20} considers high and low frequency components in load power demand  and two filters are used to achieve frequency separation. The cut-off frequency of the filters is switched between three candidate cut-off frequencies to achieve frequency separation. However the cut off frequency in the specific case is still fixed, without taking into account the specific changes in load power in specific situations. 
+The literature \cite{IEEEhowto:intro24} uses three-layer wavelet decomposition to decompose the load power demand to energy sources.
+Specially, the low frequency components change with the specific load power demand
+when using wavelet decomposition for frequency separation\cite{IEEEhowto:wavelet1}.
+
+%因此，本文提出了一种分层实时能量管理策略，结合基于规则和小波分解的方法。主要贡献如下：
+%a hierarchical real-time adaptive energy distribution strategy for hybrid energy storage system of EVs
+Therefore, this paper presents a hierarchical real-time adaptive energy distribution strategy which consists of a adaptive Haar wavelet transform (Harr-WT) strategy combined with the rule-based control, without any prior knowledge of the power demand profile. The load power demand, the state of charge (SOC) of batteries and supercapacitors and the different frequency components in load power demand are taken into account to perform real-time energy distribution.
+
+%贡献点
+%1.提出了什么策略
+%2 基于 SOC 保证了超级电容半杯水。基于小波同时功率和频率保证了高低频。
+%3. 实验验证
+The main contributions are summarized as follows.
+
+1) a hierarchical real-time adaptive energy distribution strategy is proposed to distribute the load power demand between batteries and supercapacitors.
+
+2) maintaining the SOC of supercapacitors at a predefined value by analyzing the SOCs of batteries and supercapacitors, and the load power demand. Fully using supercapacitors as an energy buffer to fully satisfy high frequency power and splitting the high frequency power to supercapacitors and the low frequency power to batteries by simultaneously analyzing the SOCs of batteries and supercapacitors, and frequency components of load power.
+
+3)  extensive experiment results show that the proposed method provides a better real-time energy sharing between supercapacitors and batteries
+%2) fully use supercapacitors as an energy buffer to fully satisfy high frequency components in load power demand.
+%3) maintains the SOC of supercapacitors at a predefined value.
+%为了满足负载的功率需求，
+%In order to meet the demand of the load, seven operation zones of supercapacitors are 
+%The different energy level of  supercapacitors and the frequency domain distribution of the historical road conditions determine the decomposition layers of wavelet decomposition.
+%
+%The final realization of proposed strategy not only make full use of the supercapacitor to protect battery life, but also saves the amount of computation.
+
+%本文组织如下
+This paper is organized as follows. Section 2 introduces the configuration of hybrid energy management system. Section 3 models the components in the hybrid energy management system. Section 4 presents the control strategy proposed in this paper. Verification of experimental results is presented in Section 5. The main conclusions are presented in Section 6.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{System Configuration  and Model }
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=12cm]{./imagesrc/HESS.png}
+\caption{Configuration of the proposed hybrid energy management system for the electric vehicle.}
+\label{Configuration}
+\end{figure*}
+%图1是本文电动汽车的配置图。
+The configuration of proposed hybrid energy storage system for electric vehicles is shown in Fig. \ref{Configuration}.
+%
+%由于超级电容的功率密度高和电池的能量密度高，电池作为作妖的能量源并提供功率需求中的低频部分，而超级电容作为峰值功率缓冲单元，可以提供功率需求中剩下的高频部分。
+According to the high power density of supercapacitors and high energy density of batteries, batteries operate as the primary energy source and supply the low frequency content of power demand while supercapacitors are considered as a peak power buffer unit which can offer the rest of  high frequency content of power demand rapidly.
+
+%图1中的符号解释。Lbat，LSC分别表示电池和超级电容的dc/dc转换器的电感，Cf是总线电感，α分别是电池的dc/dc转换器的占空比。
+%Notations in Fig. \ref{Configuration} are as follows. $L_{bat}$ and $L_{bat}$ represent the converter inductance of two DC/DC converters connected in series with batteries and supercapacitors, respectively. $C_f$ represents the DC bus capacity. $\alpha _{SC\_1}$ and $\alpha _{SC\_2}$ represent the converter duty ratios for supercapacitors. $\alpha _{Bat\_1}$ and $\alpha _{Bat\_2}$ represent the converter duty ratios for batteries. ${V_{bus}}$ is the bus voltage.
+
+\subsection{Battery model}
+% [2][6].
+%L. Guzzella, A. Sciarretta, “Vehicle Propulsion Systems: Introduction to Modeling and Optimization”, Second edition, June, 2007. 
+%P. Elbert, C. Onder, H. J. Gisler, “Capacitors vs. Batteries in a Serial Hybrid Electric Bus”, in Proc. 6th IFAC, Munich, Germany, July, 2010. 
+%电池具有高能量密度和低功率密度的特点，因此应该以比超级电容低的速率为负载提供能量。电池主要受限于它的循环寿命次数，因此所提策略应该尽量避免使电池面对高频变化的充电/放电功率。
+
+%电池的特点是高能量密度和低功率密度，因此其应该以比超级电容低的速率为负载提供能量。电池主要受限于它的循环寿命次数，因此所提策略应该尽量避免使电池面对很有高频成分的充电/放电功率。
+Batteries is characterized by high energy density and low power density, so it should power the load at a lower rate than supercapacitors. Battery is mainly limited by numbers of its cycle life, hence the proposed strategy should try to avoid batteries facing the charging/discharging power of high frequency components.
+%本文中电池模型考虑的是一个电阻串联一个电压源。
+The battery model in this paper considers a resistor in series with a voltage source [2][6]. The battery current is ${I_{Bat}}$ calculated as follows 
+
+\begin{equation}
+{I_{Bat}} = \frac{{{V_{Bat}}SO{C_{Bat}}\left( i \right)}}{{2{R_{Bat}}SO{C_{Bat}}\left( i \right)}} - \frac{{\sqrt {V_{Bat}^2SO{C_{Bat}}\left( i \right) - 4{R_{Bat}}SO{C_{Bat}}\left( i \right){P_{Bat}}\left( i \right)} }}{{2{R_{Bat}}SO{C_{Bat}}\left( i \right)}}\left[ A \right]
+\end{equation}
+where  $P_{Bat}$ is the input to the battery model, indicating the power absorbed or discharged by the battery.
+%SOC  
+The state of charge $SO{C_{Bat}}$ is defined as the ratio of the charge ${Q_i}$ in the battery at the i-th moment to its nominal capacity ${Q_0}$. The SOC of battery $SO{C_{Bat}}$ is calculated as follows
+\begin{equation}
+SO{C_{Bat}}\left( i \right) = \left( {Q\left( i \right)/{Q_0}} \right) \cdot 100\left[ \%  \right]
+\end{equation}
+The  state of charge $SO{C_{Bat}} $ is updated as follows
+\begin{equation}
+SO{C_{Bat}}\left( {i + 1} \right) = SO{C_{Bat}}\left( i \right) - \left( {{I_{Bat}}\left( {i + 1} \right) \cdot \Delta t/{Q_0}} \right) \cdot 100\left[ \%  \right]
+\end{equation}
+where $\Delta t$ is the time step (1 s).
+%[15]
+%Herrera V I, Saez-de-Ibarra A, Milo A, et al. Optimal energy management of a hybrid electric bus with a battery-supercapacitor storage system using genetic algorithm[C]//Electrical Systems for Aircraft, Railway, Ship Propulsion and Road Vehicles (ESARS), 2015 International Conference on. IEEE, 2015: 1-6.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=8cm]{./imagesrc/SOCV.png}
+\caption{$V_{Bat}$ and $R_{Bat}$ vs. $SOC_{Bat}$}
+\label{SOCVR}
+\end{figure*}
+
+%[15] Comparison of energy management strategies for a range extended electric city bus 
+%因为电池的循环使用寿命依赖于其 SOC，因此电池的 SOC 应限制在一定范围内[15].有图可知，当电池的 SOC 低于20%时，电池的放电电阻迅速变大而开路电压迅速变小。因此电池的 SOC 应该保持在20%以上。
+The cycle life of the battery depends on its SOC, hence the SOC of the battery ${SOC_{Bat}}$ should be limited to a certain range [15]. As can be seen from the Fig.\ref{SOCVR}, when ${SOC_{Bat}}$  is lower than 20\%, the discharge resistance of the battery rapidly increases and the open circuit voltage changes rapidly decreases. Therefore, ${SOC_{Bat}}$ should be kept above 20\%.
+
+
+
+\subsection{Supercapacitor model}
+%超级电容的特点是高功率密度和低能量密度，因此能够快速响应负载中的高频成分，然而同时受限于它的能量。因此超级电容是作为一个能量缓冲器的角色，分别在加速时输出功率和在减速时吸收功率。本文中超级电容考虑的模型是一个电容串联一个电阻。
+Supercapacitors are characterized by high power density and low energy density, so they can respond quickly to high frequency components in the load, but are limited by its energy. Therefore, supercapacitors act as an peak energy buffer, outputting power during acceleration and absorbing power during deceleration,  respectively. The model considered in this paper for supercapacitors is a capacitor in series with a resistor. The supercapacitor current ${I_{SC}}$ is calculated as follows 
+
+\begin{equation}
+{I_{SC}} = \frac{{{Q_{SC}}\left( i \right)/{C_{SC}}}}{{2{R_{SC}}}} - \frac{{\sqrt {{{\left( {{Q_{SC}}\left( i \right)/{C_{SC}}} \right)}^2} - 4{R_{SC}}{P_{SC}}\left( i \right)} }}{{2{R_{SC}}}}\left[ A \right]
+\end{equation}
+where ${Q_{SC}}$, ${C_{SC}}$, ${R_{SC}}$ represent the charge stored in the supercapacitor, the equivalent capacitance, the equivalent internal resistance of the supercapacitor,  respectively. The charge stored in the supercapacitor ${Q_{SC}}$ is calculated as follows
+
+\begin{equation}
+{V_{SC}}\left( i \right) = {Q_{SC}}\left( i \right)/{C_{SC}}[V]
+\end{equation}
+where ${V_{SC}}$ represent the equivalent voltage of the supercapacitor. The state of charge $SO{C_{SC}}$ is defined as the ratio of the voltage ${V_{SC}}$ in the supercapator at the i-th moment to its nominal capacity ${V_{SC\_nom}}$. The SOC of supercapator $SO{C_{SC}}$ is calculated as follows
+
+\begin{equation}
+SO{C_{SC}}\left( i \right) = \left( {V_{SC}^2\left( i \right)/V_{SC\_nom}^2} \right) \cdot 100\left[ \%  \right]
+\end{equation}
+The  state of charge ${Q_{SC}} $ is updated as follows
+\begin{equation}
+{Q_{SC}}\left( {i + 1} \right) = {Q_{SC}}\left( i \right) - {I_{SC}}\left( {i + 1} \right) \cdot \Delta t\left[ C \right]
+\end{equation}
+
+%[6]V. Herrera, H. Gaztanaga, A. Milo, A. Saez-de-Ibarra, I. Etxeberria- ˜ Otadui, and T. Nieva, “Optimal energy management of batterysupercapacitor based light rail vehicle using genetic algorithms,” presented at the Energy Convers. Congr. Expo., Montreal, QC, Canada, Sep. 2015
+%超级电容的SOC应该维持在25%以上，因为此时 超级电容的电压为标称电压的一半，能向外提供能量。
+It is worth noting that the minimum  $SO{C_{SC}}$ should be maintained above 25\%, because the supercapacitor voltage ${V_{SC}}$is only half of the nominal voltage ${V_{SC\_nom}}$ and still provides energy[6].
+\subsection{DC/DC converter model}
+%本文采用的是全主动的拓扑结构，虽然与半主动比，消耗更大，但是不仅能够对流进和流出电池和超级电容的能量进行独立管理和有效的控制，具有很大的灵活性。转换器将电池和超级电容提供的低压进行升压至100V的总线电压。
+This paper adopts a fully active topology which is comprised of batteries, supercapacitors, and bidirectional DC/DC converters.
+%
+Compared with semi-active topology, it consumes more energy, but the energy flowing into and out of batteries and supercapacitors can be independently managed and effectively controlled, and therefore more flexible.
+%
+The bidirectional DC/DC converters boost the low voltage supplied by battery and supercapacitor to a high DC bus voltage.
+%
+Assuming that the switching frequency is sufficiently larger than the frequency bandwidth of the circuit, passive elements are invariant and two converters operate in continuous-conduction mode. Based on these assumptions, the average model of the circuit is expressed as follows[48]:
+
+\begin{equation}
+{{\alpha _{SC\_1}} = 1 - {\alpha _{SC\_2}}}
+\end{equation}
+
+\begin{equation}
+{{\alpha _{Bat\_1}} = 1 - {\alpha _{Bat\_2}}}
+\end{equation}
+
+\begin{equation}
+{{L_{SC}}{{\dot I}_{SC}} = {V_{SC}} - {V_{bus}}{\alpha _{SC\_2}}}
+\end{equation}
+
+\begin{equation}
+{{L_{Bat}}{{\dot I}_{Bat}} = {V_{Bat}} - {V_{bus}}{\alpha _{Bat\_2}}}
+\end{equation}
+
+\begin{equation}
+{{C_f}{{\dot V}_{bus}} = {i_{Bat}}{\alpha _{Bat\_2}} + {i_{SC}}{\alpha _{SC\_2}} - {i_{Load}}}
+\end{equation}
+
+where $\{ {\alpha _{SC\_1}}, {\alpha _{SC\_2}}, {\alpha _{Bat\_1}},{\alpha _{Bat\_2}}\} $ are control inputs, representing the converter duty ratios for supercapacitors and batteries, respectively. ${i_{Load}}$ is disturbance.
+$\{ {I_{SC}}, {I_{Bat}}, {V_{bus}}\} $ are state vectors, representing the current of supercapacitors and batteries, and the DC bus voltage, respectively. $L_{bat}$ and $L_{bat}$ represent the converter inductance of two DC/DC converters connected in series with batteries and supercapacitors, respectively. $C_f$ represents the DC bus capacity. 
+
+\subsection{EV model}
+% 本文采用了
+A practical EV model is adopted in this paper with its main characteristics assumed in Table.\ref{EV}.
+%has a higher top speed, a higher average speed, less idle time, fewer stops per mile, and a higher maximum rate of acceleration.
+%这里选择 LA92来估算负载，由图2可知 LA92是一种很有代表性的速度曲线包含的速度范围很宽既包含丰富的高速情况又包含大量的低速情况，同时含有很多加速和减速的情况，是一种很有代表性的路况。
+The Air Resources Board LA92 Dynamometer Driving Schedule (LA92) is selected to estimate the load. LA92 is a representative speed curve that contains a wide range of speeds, including rich high-speed and low-speed conditions ,as well as many acceleration and deceleration conditions as shown in Fig.\ref{LA92}. 
+
+\begin{figure}[ht]
+\centering  %图片全局居中
+\subfigure[]{
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\label{LA92speed}
+\includegraphics[width=7cm]{./imagesrc/LA92speed.png}
+\end{minipage}
+}
+\subfigure[]{
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\label{LA92power}
+\includegraphics[width=7cm]{./imagesrc/LA92power.png}
+\end{minipage}}
+\caption{Urban speed profiles LA92 dynamometer driving schedule (LA92) used to estimate the load: a) The speed of  LA92. b)  The power of  LA92.}
+\label{LA92}
+\end{figure}
+
+%轮胎滚动阻力Fr
+The tire rolling resistance ${F_r}$ is calculated as follows
+\begin{equation}
+{F_r} = {C_r}Mg
+\end{equation}
+%气动阻力Fd
+The aerodynamic drag ${F_d}$ is calculated as follows
+\begin{equation}
+{F_d} = 0.5\rho A{C_d}{V^2}
+\end{equation}
+%负载功率
+The load power includes two conditions, drive power and regenerative power. Then the load power in DC bus can be calculated as
+\begin{equation}
+{P_{load}} = \left\{ \begin{array}{l}
+\begin{array}{*{20}{c}}
+{\left( {{M_a} + {F_r} + {F_d}} \right)V/{\eta _{dr}}}&{{\rm{ }}drive{\rm{ \ }}power}
+\end{array}\\
+\begin{array}{*{20}{c}}
+{{M_a}{\eta _{fb}}{\eta _{dr}}}&{{\rm{ \qquad \qquad \quad }}regenerative{\rm{  \   }}power}
+\end{array}
+\end{array} \right.
+\end{equation}
+Where ${\eta _{dr}}$, ${\eta _{fb}}$ represent the electrical energy conversion efficiency and the kinetic energy feedback efficiency, respectively, and their corresponding values are 92\% and 80\%.  
+It is worth noting that the energy used by the auxiliary system is considered to be part of the electrical energy conversion efficiency ${\eta _{dr}}$. Excessive regenerative power that can be absorbed beyond energy sources is consumed by the braking resistor.
+
+\begin{table*}[ht]
+\begin{center}
+\caption{Comparison between WT of different layers}\label{EV}
+\begin{tabular}{ccc}
+\toprule  %添加表格头部粗线
+Symbol & EV Units & Values\\
+\midrule  %添加表格中横线
+$M$ & Vehicle mass ($kg$) &1460 \\
+${C_d}$&Aerodynamic drag coefficient &0.28 \\
+$A$ &  Frontal area (${m^2}$) &2.2 \\
+$\rho$ & Air density (${{kg}/m^3}$) &1.29 \\
+${C_r}$& Rolling resistance coefficient &0.016 \\
+$V$& Vehicle velocity  (${{km}/h}$)& LA92 \\
+\bottomrule %添加表格底部粗线
+\end{tabular}
+\end{center}
+\end{table*}
+
+%电动汽车混合能源中的能量和功率管理问题对于延长整个混合能源系统的寿命和电动汽车行驶里程是非常关键的。满足电动汽车动态功率需求的同时，综合考虑混合能源系统中的能量和功率分配，能最大化行驶里程和保护电池。
+%Energy management issue in hybrid energy storage system for electric vehicles is critical for extending the life of the entire system and the mileage of electric vehicles. 
+%While meeting the dynamic energy demand of electric vehicles, the energy and power distribution in the hybrid energy system are considered comprehensively to maximize the mileage and protect the battery.
+
+%To meet the power demand and maintain the stability of the DC bus voltage under constrains such as current limitation and low energy capacity of SC, a control strategy need to be designed to allocate power to SCs and batteries, as will be given in the following section
+
+%图1中，为了将功率转移给负载，总线电压Vbus应该保持恒定。总电流Idem
+In Fig. \ref{Configuration}, the DC bus voltage ${V_{bus}}$ should be kept constant in order to transfer power to the load. 
+%电动汽车混合能源中的功率管理问题对于延长整个混合能源系统的寿命和电动汽车行驶里程是非常关键的。
+Power management issue in hybrid energy storage system for electric vehicles is critical for extending the life of the entire system and the mileage of electric vehicles. 
+%控制策略应该能够合理分配负载功率给电池和超级电容，将在接下来的一节中给出 
+Therefore, the proposed strategy should reasonably distribute the load power to batteries and supercapacitors according to their characteristics, which are given in the following section.
+%$I_{dem}$ is a representation of the load current, which represents the load power demand. 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proposed Real-time Layer-adaptive Wavelet Transform Strategy }
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=15cm]{./imagesrc/controlloop.png}
+\caption{ Proposed energy management system, concerning a hierarchical energy management strategy: the energy management level and the power management level. Control circuit concerns both the battery and the supercapacitor current loops.}
+\label{controlloop}
+\end{figure*}
+
+% 已知功率需求中含有的剧烈变化的成分会给电池带来极大地损害，因此功率管理策略的关键是将负载中的高频成分分配给超级电容而低频成分分配给电池。
+The sharp transient components contained in the load can cause significant damage to batteries, therefore, the key to the power management strategy is to distribute the high frequency components of the load to supercapacitors and the low frequency components to batteries.
+%如图2所示该策略依赖的底层是一个闭环控制电路，包括一个电压反馈外环和电池电流闭环和超级电容电流闭环。电压外环产生维持总线电压稳定的总参考电流 Idem，两个电流内环分别跟踪电池和超级电容的参考电流。所提策略将总参考电流 Idem分为两个部分：高频功率部分和低频功率部分，分别作为超级电容和电池的电流环的参考电流。
+The bottom layer of the strategy shown in Fig.\ref{controlloop} is a closed-loop control circuit that includes a voltage feedback outer loop, a battery current closed loop and a supercapacitor current loop. 
+%
+The outer voltage loop generates a total reference current $I_{dem}$ that maintains the DC bus voltage stability, and the two inner current loops track the reference currents of the battery and the supercapacitor, respectively. 
+%
+The duty ratios of DC/DC converters  $\alpha_{Bat\_1}$, $\alpha_{Bat\_2}$,$\alpha_{SC\_1}$, $\alpha_{SC\_2}$ are obtained through current loops.
+%
+The proposed strategy divides the total reference current $I_{dem}$ into two parts: the high frequency power part $I_{Bat\_ref}$ and the low frequency power part $I_{SC\_ref}$, which serve as reference currents for the current loops of the battery and supercapacitor, respectively.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=5cm]{./imagesrc/xiaobo.png}
+\caption{Five-level Haar decomposition.}
+\label{xiaobo}
+\end{figure}
+
+%本文提出一种自适应策略。
+In this paper,  an real-time level-adaptive wavelet transform strategy is proposed.
+%小波分解是一种用于时频域分析的方法，小波分解的用处已经在很多应用领域中得到了证明[wavelet1]。小波分解可以抽取负载中的瞬态和尖峰变化【IEEEhowto:wavelet2】。
+Wavelet transform is a signal process method that has proven its usefulness in variety of applications \cite{IEEEhowto:wavelet3}, \cite{IEEEhowto:wavelet4}, \cite{IEEEhowto:wavelet1}. Wavelet transform can extract characteristics of transient signal and sharp changes in the load profile \cite{IEEEhowto:wavelet2}. 
+%因此本文采用小波分解将负载功率的高频部分和低频部分进行解耦，如图所示4，所需的不同频率部分可以通过滤波实现。
+Therefore, wavelet decomposition is used in this paper to decouple high frequency component and low frequency component of the load power. As shown in Fig.\ref{xiaobo}, the different frequency components can be achieved by multi-layer filtering.
+%哈尔小波变换是小波变换中最简单的一种变换，基函数是哈尔基函数，它是由一组分段常值函数组成的函数集，公式如下。
+Haar wavelet transform is one of the simplest transformations in wavelet transform. The mother wavelet is Haar wavelet, which is a set of functions composed of a set of piecewise constant function \cite{IEEEhowto:wavelet5}, \cite{IEEEhowto:wavelet6}.
+
+\begin{equation}
+\psi \left( t \right) = \left\{ {\begin{array}{*{20}{c}}
+{1{\rm{       }}}&{0 \le t < \frac{1}{2}}\\
+\begin{array}{l}
+ - 1{\rm{ }}\\
+0
+\end{array}&\begin{array}{l}
+\frac{1}{2} \le t < 1\\
+{\rm{otherwise}}
+\end{array}
+\end{array}} \right.
+\end{equation}
+
+\begin{figure}[ht]
+\centering  %图片全局居中
+\subfigure [] {
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCspeed.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCpower.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCspeed.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCpower.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCspeed.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=7.5cm]{./imagesrc/NYCCpower.png}}
+\caption{The velocity profiles and power profiles of representative standard driving cycles,  the Highway Fuel Economy Driving Schedule (HWFET), the New York City Cycle (NYCC), and the EPA Urban Dynamometer Driving Schedule (UDDS). (a) the speed profile of HWFET (b) the power profile of HWFET (c) the speed profile of NYCC (d) the power profile of NYCC (e)  the speed profile of UDDS (f) the power profile of UDDS.}
+\label{3drivingcycle}
+\end{figure}
+
+%离散小波分解用于将一段离散信号进行不同层数的分解。DWT 公式表示如下。通过调整尺度参数和位置参数，可以得到具有不同时频宽度的小波来匹配原始信号的任意位置，达到对信号的时频局部化分析的目的。
+The discrete wavelet transform (DWT) is used to decompose a discretized signal
+into different resolution levels. The DWT can be expressed as
+
+\begin{equation}
+W\left( {\lambda ,u} \right) = \int {s\left( t \right)} \frac{1}{{\sqrt \lambda  }}\psi \left( {\frac{{t - u}}{\lambda }} \right)dt
+\end{equation}
+where $\lambda$ represents the scale parameter . $u$ represents the position parameter. Wavelet coefficients $W$ is a function of $\lambda$  and $u$. The wavelet $\psi \left( {\frac{{t - u}}{\lambda }} \right)$ with different time-frequency width can be obtained by adjusting the scale parameter $\lambda$ and position parameter $u$ to match any position of the original signal $s\left( t \right)$ to achieve the purpose of time-frequency localization analysis of the signal.
+
+
+%不同的分解层数得到的高频成分中的频率也不同，即分解层数越多，高频部分中包含的频率越高。因此如何确定分解层数，就决定了分配给电池和超级电容的功率中的频率成分，是很关键的。
+As show in Fig. \ref{xiaobo}, the frequency in the frequency part obtained by different levels of decomposition is different. The higher the levels of decomposition, more power included in high frequency portion. 
+Therefore, the number of decomposition levels determines the frequency components contained in the low frequency part and the power contained in the high frequency part which is critical. 
+%本策略首先比较了在工况 LA92上不同层数的小波转换下电池和超级电容的电流和 SOC 变化情况。
+This proposed strategy first compares the current and SOC of batteries and supercapacitors under the wavelet transform of different decomposition levels on driving cycle LA92 as follows.
+
+%根据负载和能量源 SOC的情况，自适应得到小波分解的层数，然后采用小波分解得到高频成分和低频成分两部分，并分别分配给电池和超级电容。
+ %According to the load and SOCs of energy sources, the levels of wavelet decomposition is adaptively obtained, and then high frequency component and low frequency component are obtained by wavelet decomposition and distributed to battery and supercapacitor, respectively.
+
+
+%The power management level is designed to minimize the difference between the dynamic power demand and the energy supply of the HESS while maximizing the battery SOC and maintaining the SOC of supercapacitor within a suitable range so that the electric vehicle can achieve the longest possible driving range.
+%
+%The frequency management level is designed for real-time power distribution while distributing the high-frequency changing components of the power demand to supercapacitor as much as possible to extend battery life.
+
+\subsection{Comparison of Decomposition Levels for Wavelet Transform }
+%如图所示，采用不同层数的小波转换时，电池的 SOC 变化不明显，但是超级电容的 SOC 有明显的差异。随着分解层数越来越高，超级电容的 SOC下降的越快，同时在瞬变时刻电池的电流也越来越小。因此，分解层数越高对电池越有利，但是超级电容的 SOC 消耗越多。因此针对超级电容的SOC，采用不同层数的小波转换时很有意义的。超级电容的 SOC 使用场景分析如下
+As shown in the Fig.\ref{compare12345}, when the wavelet transform of different layers is used, the SOC of the battery does not change significantly, but the SOC of the super capacitor has a significant difference. As the number of decomposition layers becomes higher and higher, the SOC of the supercapacitor decreases faster, and the current of the battery is also getting smaller at the moment of transient. Therefore, the higher the number of decomposition layers, the better the battery, but the more SOC consumption of the super capacitor. Therefore, for the SOC of the supercapacitor, it makes sense to use different layers of wavelet transform. The SOC usage scenario of the supercapacitor is analyzed in the following section.
+%尤其是，路况功率的先验知识是不需要的，本文只需要历史功率数据即【k-1.28，k】。通过插值方法，对电动汽车过去1.28秒内的功率曲线进行采样，采用不同分解层数的小波分解来分析其频域信息。
+%In particular, the prior knowledge of road power is not needed. This paper only needs historical power data, ie, t in [k-1.28,k]. Through the interpolation method, the power curve of the electric vehicle in the past 1.28 seconds was sampled, and the frequency domain is analyzed by wavelet decomposition of different decomposition layers.
+-------------------------------------------------------------------------------------------------------------------------------------
+analyze Fig.7 in detail, especially the table.2.\\
+-------------------------------------------------------------------------------------------------------------------------------------
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=12cm]{./imagesrc/compare12345.png}
+\caption{The results of three driving cycle  HWFET, NYCC, UDDS under WT of different levels.}
+\label{compare12345}
+\end{figure*}
+
+\begin{table*}[ht]
+\begin{center}
+\caption{\\The results of three driving cycle  HWFET, NYCC, UDDS under WT of different levels.}\label{tb:table1}
+\begin{tabular}{clccccc}
+\toprule  %添加表格头部粗线
+Driving cycle & values for comparison & One-layer & Two--layer & Three--layer& Four-layer & Five-layer\\
+\hline
+\multirow{4}[8]{1in}{LA92} 
+&  Remaining $SOC_{SC}$ [\%]  & la \bigstrut\\
+&  Consumed ${SOC_{SC}}$ [\%]  & \bigstrut\\
+&  Remaining ${SOC_{Bat}}$ [\%]  &  \bigstrut\\
+& Current range of Bat [A] &\bigstrut\\
+& Mean of Bat current [A] &\bigstrut\\
+& Maximum current of Bat [A] &\bigstrut\\
+& Current range of SC [A] &\bigstrut\\
+& Mean of SC current [A] &\bigstrut\\
+& Maximum current of SC [A] \bigstrut\\
+\bottomrule %添加表格底部粗线
+\end{tabular}
+\end{center}
+\end{table*}
+
+\subsection{Operate Zones of Supercapacitors}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=10cm]{./imagesrc/soc.png}
+\caption{The SOC combination of battery and supercapacitor under three load demands, and  charge and discharge capability of supercapacitor is divided into seven levels.}
+\label{SoCMap}
+\end{figure*}
+
+%超级电容在每个时刻能够为负载提供的能量取决于它们的SoC 水平。
+The SOC of supercapacitors determines the amount of power they can supply to the load or absorb from regenerative braking condition.
+%作为能量缓冲器，应当充分利用超级电容来保证超级电容快速响应加速时的功率尖峰或者在刹车时吸收回馈能量。
+As a peak energy buffer in the hybrid energy management system, supercapacitor should be fully utilized to ensure that supercapacitor responds quickly to power peaks during acceleration or absorb feedback energy in braking condition.
+%因此超级电容的 SOC应该保持在合适的范围内。它的SoC 需要保持在预设区间内，当超级电容的SoC 低于该范围时，电池或负载对其进行充电，当其超出该范围时时，需要放电至要求范围。此外，在回馈制动模式下，应尽量先将回馈能量分配给超级电容，能有效保护电池。
+Therefore, the SOC of supercapacitor should be always kept within a preset range  so that they can both provide high-frequency energy or absorb energy from regenerative braking at any moment.  When the SOC of the supercapacitor falls below this range, it should be charged by battery or the load while when that goes out of range, it needs to be discharged to the preset range.
+%
+%Meanwhile, the regenerative energy should be  firstly  distributed to supercapacitor in regenerative braking conditions, which can effectively protect the battery life.
+
+%为了最大化电池的SOC并使超级电容的SOC保持在最合适的范围内，首先分析电池和超级电容的SOC，如图所示。
+To maximize the SOC of battery and keep the SOC of  supercapacitor within the most suitable range, the SOCs of battery and supercapacitor are first analyzed in a two-dimensional coordinate system as shown in Fig.\ref{SoCMap}. The horizontal axis represents the SOC range of supercapacitor and the vertical axis represents the SOC range of battery.
+%SOC在正半轴表示放电容量，在负半轴表示充电容量。
+SOC represents the discharge capacity in positive half-axis and the charge capacity in the negative half-axis.
+$P_{Bat\_\max }$, $P_{dem}$ denotes the maximum current of battery and the load power demand, respectively.
+%基于规则的思想，本文把负载功率需求分为三种情况，即P>0.9*Pdem,0<P<0.9*Pdem,P<0，并在这三种情况下具体的分析超级电容的充放电能力。
+%\[{P_{Bat\_\max }}\]
+According to rule-based method, the load demand $P_{dem}$ are divided into three cases, namely ${P>0.9P_{Bat\_\max }}$, ${0<P<0.9P_{Bat\_\max }}$ and ${P<0}$.
+The operate zones of supercapacitor is analysed under these three specific load power demand conditions.
+
+%电池和超级电容的阈值划分如下。如前面的小结提及，电池和超级电容的最小值分别为20%和25%。超级电容作为能量缓冲器，其所存功率应该维持在一半左右，因此其 SOC 的预设范围为45%至55%。电池的两个阈值分别为30%和85%，是电池大部分所处的情况。
+The specific values of the 8 thresholds $SOC_{Bat\_\max }^{Dis}$, $SOC_{Bat\_\min }^{Dis}$, $\tau _{Bat\_\max }^{Dis}$, $\tau _{Bat\_\min }^{Dis}$, $SOC_{SC\_\max }^{Dis}$, $SOC_{SC\_\min }^{Dis}$, $\tau _{SC\_\max }^{Dis}$, $\tau _{SC\_\min }^{Dis}$ for the battery and supercapacitor in Fig.\ref{SoCMap} are are shown in Tab.\ref{thresholds}. As mentioned in the previous section, the minimum values for the battery and supercapacitor are 20\% and 25\%, respectively. The supercapacitor acts as an energy buffer and therefore its stored energy should be maintained  at about half of full power, so its SOC preset range is 45\% to 55\%. The two intermediate thresholds for theand in most cases the SOC of the battery is in this range, and in most cases the SOC of the battery is in this range.
+
+\begin{table*}[ht]
+\begin{center}
+\caption{The threshold values of the SOCs of the battery and the supercapacitor.}\label{thresholds}
+\begin{tabular}{cc}
+\toprule  %添加表格头部粗线
+Symbol & Values\\
+\hline
+$SOC_{Bat\_\max }^{Dis}$, $SOC_{Bat\_\min }^{Dis}$, $\tau _{Bat\_\max }^{Dis}$, $\tau _{Bat\_\min }^{Dis}$&   [20\%, 30\%, 85\%, 100\%] \\
+  $SOC_{SC\_\max }^{Dis}$, $SOC_{SC\_\min }^{Dis}$, $\tau _{SC\_\max }^{Dis}$, $\tau _{SC\_\min }^{Dis}$  & [25\%, 45\%, 55\%, 100\%] \\
+\bottomrule %添加表格底部粗线
+\end{tabular}
+\end{center}
+\end{table*}
+-------------------------------------------------------------------------------------------------------------------------------------
+2028-11-29\\
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+\subsubsection{${P>0.9P_{Bat\_\max }}$}
+In the first quadrant, 
+%the SOCs of battery and supercapacitor both have 4 thresholds, $SOC_{Bat\_\max }^{Dis}$, $SOC_{Bat\_\min }^{Dis}$, $\tau _{Bat\_\max }^{Dis}$, $\tau _{Bat\_\min }^{Dis}$, represent the maximum, minimum, and two normal SOC values of battery, respectively.$SOC_{SC\_\max }^{Dis}$, $SOC_{SC\_\min }^{Dis}$, $\tau _{SC\_\max }^{Dis}$, $\tau _{SC\_\min }^{Dis}$, represent the maximum, minimum, and two normal SOC values of supercapacitor, respectively.
+The load power demand is in a condition of the maximum threshold
+${0.9P_{Bat\_\max }}$ hence both battery and supercapacitor should supply power to the load.
+According to 9 combinations of battery and supercapacitor SOC in Fig.\ref{SoCMap}, the discharge level of supercapacitor is divided into three cases: $ L_{Dis}^1$, $ L_{Dis}^2$, $ L_{Dis}^3$, in which $ L_{Dis}^1$ has the highest discharge capability.
+
+ %在第二象限中，0<功率<0.9，此时考虑电池需要同时给超级电容和负载供电的情况。此时超级电容充电等级为L，其充电容量取决于电池和负载。 由于超级电容作为能量缓冲的角色，因此它的SOC应该保持在50%左右，为未来的充放电做好准备。超级电容的SOC 有5 个阈值，其中a 表示0.5SOC。 当超级电容的SOC<50% 时，电池一直为超级电容充电至其SOC 到达0.5SOC。
+ \subsubsection{${0<P<0.9P_{Bat\_\max }}$}
+In the second quadrant,
+% the SOC of supercapacitor has 5 thresholds, $SOC_{SC\_\max }^{Cha}$,  $SOC_{SC\_\min }^{Cha}$, $\tau _{SC\_\max }^{Cha}$,  $\tau _{a}$, and $\tau _{SC\_\min }^{Cha}$, where $\tau _{a}$ represents 50\% SOC. 
+ % 电池能提供所有的负载功率需求。
+When $SO{C_{SC}} \in \left[ {{\tau _a},SOC_{sc\_min}^{Cha}} \right]$, supercapacitors cannot cope with instantaneous high frequency load power demand, so
+the light-colored area where battery supplies supercapacitor and the load simultaneously is analyzed.
+The useage scenarios of supercapacitor is $L_{Cha}^4$ depends on battery and load.
+ As an energy buffer, the SOC of supercapacitor should be kept at about 50\% to prepare for future charge and discharge. 
+When   ${SOC _{SC}<\tau _{a}}$, supercapacitor is charged to 50\% SOC by battery.
+
+%在第三象限中，功率<0。此时电动汽车处于回馈制动模式，混合能系统需要吸收回馈能量。电池的SOC有四个阈值。根据超级电容的SOC，将超级电容的充电能力分为三个等级，L1,L2,L3，其中L1 的放电能力最高。
+ \subsubsection{${P<0}$}
+In the third quadrant, 
+%the SOC of battery has four thresholds $SOC_{Bat\_\max }^{Cha}$, $SOC_{Bat\_\min }^{Cha}$, $\tau _{Bat\_\max }^{Cha}$, and $\tau _{Bat\_\min }^{Cha}$. 
+the electric vehicle is in the regenerative  braking condition, and the hybrid energy system needs to absorb regenerative energy.
+The useage scenarios of supercapacitor is divided into three cases: $ L_{Cha}^1$, $ L_{Cha}^2$, $ L_{Cha}^3$, in which $ L_{Cha}^1$ has the highest charge capability.
+
+Therefore, the useage scenarios of supercapacitor is divided into seven levels as shown in fig.3, namely,
+${L_{SC}} \in \left\{ { L_{Dis}^1, L_{Dis}^2, L_{Dis}^3, L_{Cha}^1, L_{Cha}^2,L_{Cha}^3,L_{Cha}^4,} \right\}$.
+%L_{Cha}^1
+ %L_{Dis}^1, L_{Dis}^2, L_{Dis}^3, L_{Cha}^1, L_{Cha}^2,L_{Cha}^3,L_{Cha}^4
+Level $ L_{Dis}^1$, $L_{Dis}^2$, $L_{Dis}^3$ represent the discharge levels of supercapacitor and level $L_{Cha}^1$, $L_{Cha}^2$, $L_{Cha}^3$, $L_{Cha}^4$ represent the charging levels of supercapacitor.
+
+\subsection{Adaptive Determination of Layer Number of Wavelet Decomposition}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=10cm]{./imagesrc/level.png}
+\caption{The SOC combination of battery and supercapacitor under three load demands, and wavelet decomposition layers corresponding to the seven levels of charge and discharge capacity of supercapacitor.}
+\label{level}
+\end{figure*}
+
+%负载的功率需求中包含很多尖峰，会极大地损害电池。策略应该能将基于负载的功率需求信号中的瞬态分离出来。
+%The power demand of load contains many transients. A energy management strategy in hybrid power systems should separate power demand from its transients.
+%功率管理层面，旨在实现电池和超级电容间的实时功率分配，并尽可能的将高频成分分给超级电容以保护电池。
+%At the frequency management level, it aims to achieve real-time power sharing between battery and supercapacitor, and assign the high-frequency component to supercapacitor as much as possible to protect battery.
+
+% 在驾驶过程中存在加速和突然刹车的情况，因此负载功率需求中就会存在高频成分，如果直接将这些高频成分直接分配给电池应对，电池将受到伤害。因此策略应该关注负载需求中的不同频率成分并把其中的高频成分分解出来。
+%在功率层，考虑满足负载需求这个前提，因此将超级电容分为了七种使用场景，配合电池一起满足负载需求，但是没有考虑超级电容和电池各自响应的电流中的频率成分。
+%因此在频率层，考虑到电池和超级电容对负载需求的不同响应特性，策略应该能根据不同的负载需求情况，对电池和超级电容分配不同频率成分的功率，既满足负载需求又能尽量延长电池寿命。
+
+Acceleration and sudden braking are common in driving situations, hence load power demand includes some high frequency components. If the high frequency components are directly distributed to battery, the performance of battery will be impaired. Therefore, the strategy should focus on the different frequency components in the load demand and decompose the high frequency components.
+In power management level, considering the premise of meeting the load demand, supercapacitor is divided into seven usage scenarios, and battery is combined  to meet the load power demand, however, the frequency components in the currents of supercapacitor and battery are not considered.
+Therefore, in frequency management level, considering the different response characteristics of battery and supercapacitor to the load demand, the strategy should be able to distribute the power of different frequency components to battery and supercapacitor according to different load demand.
+
+
+%由上一节可知，超级电容的充放电能力分成了7种情况, 结合负载功率需求的频域分布，分析负载需求功率的分解级数。 显然，不同的充放电等级需要的分解层数是不同的。
+From the previous section, the usage scenarios of supercapacitor are divided into seven levels. Combined with the frequency domain distribution of historical power demand of the load, the specific decomposition layer of load power demand is analysed. Obviously,  different usage scenario of supercapacitor corresponds to different layers of decomposition.
+
+%常见的小波分解有1-5层，随着分解层数越多，低频部分的频率越高，包含的能量越多而高频部分包含的能量越少，计算时间消耗也越来越大。 当进行一级分解Lw=1时，进行的分解比较粗糙，高频部分 Phigh 还包含一定的低频成分。而当进行五级分解Lw=5时，高频部分Phigh包含的能量已经很少了，但此时的计算量很大。不同分解层数得到的高频部分不同，不同的 LSC 对于高频成分的需求也是不同的。由图3可知，LSC=4时仅由电池供电，此时不需要进行小波分解。
+%The more levels are decomposed, the lower the frequency of the low frequency part is and the less the energy is contained and the more energy the high frequency contains. $0$ means no wavelet decomposition. 5 means five-level decomposition and the energy in the high frequency part is high.
+%When level $L_{Cha}^4$ means that battery is the only energy source at this time and thus no wavelet decomposition is required at this time.
+%When levels are ${L_1^{Dis}}$, ${L_2^{Dis}}$, ${L_3^{Dis}}$, different wavelet decomposition layers are used, respectively.
+Common wavelet decomposition $L_W$.
+As the layer of decomposition increases, the higher the frequency of the low frequency portion, the more energy is contained while the calculation time consumption is also larger.
+When decomposition layer $Lw=1$, the decomposition performed is rough and the high-frequency portion $P_high$ also contains a certain low-frequency component and supercapacitor needs to provide more power
+When decomposition layer $Lw=5$, the high-frequency portion $P_high$ contains little power, but the amount of calculation at this case is large.
+Different high frequency parts are obtained by different decomposition layers and the power of the high frequency part $P_high$ that different $L_SC$ can provide is also different.
+As shown in Fig. 3, when  $L_{SC}$ $=$ $ L_{Dis}^4$, only battery is powered, and no wavelet decomposition is required at this time. 
+%当放电能力分别为LDis_1,LDis_2,LDis_3时，分别采样不同的小波分解层数。
+When the usage scenarios of supercapacitor are $ L_{Dis}^1$, $ L_{Dis}^2$, and $ L_{Dis}^3$, respectively, different wavelet decomposition layers are adopted.
+%---------------------------------------------------------------------------------------------
+%2018-11-22 08:50 start from here 
+%------------------------------------------------------------------------------------------------------
+% 三种负载状况下的小波分解层数见图5，分析如下
+The wavelet decomposition layers under three load power demand conditions is shown in Fig.\ref{level}. The analysis is as follows.
+\subsubsection{${P>0.9P_{Bat\_\max }}$}
+%在该情况下，超级电容的使用场景为L1，L2，L3。当 L=L3时，超级电容的能量非常少，此时分配给超级电容的功率应该尽可能少，因此高频部分应该尽量高，因此进行五级分解。当 L=L1时，超级电容的几乎满电，为了维持超级电容能量缓冲的角色，此时应该尽量消耗超级电容至预设水平，因此分配给超级电容的功率应该尽可能多，因此高频部分应该包含一定的能量，因此进行三级分解。当 L=L4时，进行四级分解。
+In this case, the usage scenarios of the supercapacitor are $ L_{Dis}^1$, $ L_{Dis}^2$, $ L_{Dis}^3$. 
+
+When ${L_{SC}}$ = $ L_{Dis}^3$, the energy of the supercapacitor is extremely low. 
+At this time, the power allocated to supercapacitor should be as low as possible. The high frequency portion should contain as high frequency as possible and as little energy as possible, thus performing a five-layer decomposition. 
+
+When ${L_{SC}}$ = $ L_{Dis}^1$, supercapacitor is almost fully charged. In order to maintain supercapacitor as a energy buffer, supercapacitor should be consumed as much as possible to the preset SOC level. Therefore, the power allocated to supercapacitor should be as much as possible. The high frequency part It should contain a certain amount of energy, so a three-layer decomposition is performed. 
+
+When ${L_{SC}}$ = $ L_{Dis}^4$, a four-level decomposition is performed.
+% 放电等级L1，L2，L3分别对应于3级，4级和5级的小波分解层数。
+The usage scenarios $ L_{Dis}^1$, $ L_{Dis}^2$, $ L_{Dis}^3$ correspond to the wavelet decomposition layers of 3 layers, 4 layers and 5 layers, respectively.
+
+\subsubsection{${0<P<0.9P_{Bat\_\max }}$}
+%当超级电容SOC 高于a 时，使用场景为：L1，L2，对应的小波分解分别为五级分解和四级分解。
+When ${SOC _{SC}>\tau _{a}}$, the usage scenario are $ L_{Dis}^1$, $ L_{Dis}^2$, and the corresponding wavelet decomposition is five-layer decomposition and four-layer decomposition, respectively.
+%当超级电容的 SOC 低于 a 时，电池电量低于 SOCmin 时，超级电容的使用场景为 L3，小波分解层数为3层分解。$SOC_{Bat\_\min }^{Cha}$
+When ${SOC _{SC}<\tau _{a}}$ and ${SOC _{Bat}<\tau_{Bat\_\min }^{Dis}}$, the usage scenario of supercapacitor is $ L_{Dis}^3$, and the 3-layer wavelet decomposition is performed.
+%当超级电容的 SOC 低于 a 时，电池电量高于 SOCmin 时，电池为超级电容充电
+When ${SOC _{SC}<\tau _{a}}$ and ${SOC _{Bat}>\tau_{Bat\_\min }^{Dis}}$, battery charges supercapacitor.
+%电池转移到超级电容的功率如下
+The power of battery transferred to supercapacitor is as follows,
+
+\begin{equation}
+{P_{SC}} = 0.9{P_{Bat\_\max }} - {P_{Load}}
+\end{equation}
+
+%电池的参考功率为负载需求和超级电容充电功率之和。因此电池的参考电流为：
+The power provided by battery is the sum of supercapacitor and load.
+
+\begin{equation}
+{P_{Bat}} = {P_{SC}} + {P_{Load}}
+\end{equation}
+
+
+\subsubsection{${P<0}$}
+% 此时处于回馈制动的情况下，超级电容应该尽可能的吸收回馈能量。
+In the case of braking, supercapacitor should absorb regenerative energy as much as possible.
+The usage scenarios $ L_{Cha}^1$, $ L_{Cha}^2$, $ L_{Cha}^3$ correspond to the wavelet decomposition of 3 layers, 4 layers and 5 layers, respectively.
+
+%小波分解的级数取决于电池和超级电容的SOC和当前的功率需求后。通过不同级数的小波分解后，将功率需求中的高频成分和低频成份分解了出来，其中低频成份作为电池的参考电流，高频部分作为超级电容的参考部分。该策略有效保护了电池并充分使用超级电容。此外，也减少了计算成本。
+The layers of wavelet decomposition depends on SOCs of energy sources and current load power demand. After the wavelet decomposition of different layers, the high-frequency component and low-frequency component in the power demand are decomposed, in which the low-frequency component is used as the reference current of battery, and the high-frequency component is used as the reference current of supercapacitor.
+This strategy achieves hierarchical real-time adaptive distribution and effectively protects the battery and makes full use of supercapacitor.
+In addition, the computational costs are also reduced.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+\begin{figure}[ht]
+\centering  %图片全局居中
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=8cm]{./imagesrc/speed.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=8cm]{./imagesrc/power.png}}
+\caption{Urban speed profiles LA92 dynamometer driving schedule and the New York city cycle (NYCC) used for validation by real-time simulation: a) real driving
+cycle according. b) normalized driving cycle.}
+\label{test}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=7cm]{./imagesrc/testsetup.png}
+\caption{HESS physical experimental testbed.}
+\label{testsetup}
+\end{figure}
+
+%
+A dedicated scaled-down HESS experimental platform is used to validate the system described in Fig. \ref{Configuration} and the effectiveness of the proposed strategy shown in Fig. \ref{testsetup}. 
+ 
+\subsection{setup of the driver environment}
+%图中标号的设备依次为超级电容、电池、控制电路、
+The battery pack are configure as 4 serial and 5 parallel connection with commercial battery cell SAMSUNG ICR18650\-26H\_M (2.6Ah). The supercapacitor pack are configure as 7 serial and 2 parallel connection with Maxwell\-100F supercapacitor cell. The load power of driving cycle is scaled down in an equal proportion
+of 317, which constricts the maximum power to 300W. It worth noted that the frequency of the driving cycle provided by U.S. EPA is 1Hz, which is too small to generate a smooth
+power profile. So, before the load power transmitted from PC software to MCU\-STM32F407 through RS232, the driving cycle is interpolated to 100Hz with three spline interpolation.
+
+%Two buck-boost converters and a controller DSPTMS320f2808 are configured in the experimental platform. The maximum allowable current and power of converter are 20A and 300W.  The SP are configure as 72 with Maxwell\-100F supercapacitor cell. Through a specific test, the SP model parameters are derived as Csc = 28.57F,Rs = 33.5mW. The load power of driving cycle US06 is scaled down in an equal proportion of 317, which constricts the maximum power to 300W. It worth noted that the frequency of the driving cycle provided by U.S. EPA is 1Hz, which is too small to generate a smooth power profile. So, before the load power transmitted from PC software to MCU-STM32F407 through RS232, the driving cycle is interpolated to 100Hz with three spline interpolation.
+
+The Air Resources Board LA92 Dynamometer Driving Schedule and The New York City Cycle (NYCC) considered in this paper are both from the US Environmental Protection Agency, as shown in Fig. \ref{test}. The driving cycle NYCC features low speed stop-and-go traffic conditions. The driving cycle LA92 has a higher top speed, a higher average speed, less idle time, fewer stops per km, and a higher maximum rate of acceleration. It can be seen that driving cycles contain many high frequency components, hence it is more valid to verify the effectiveness of the strategy.
+To better analyze the proposed strategy under hybrid energy sources scenario, a specific section of driving cycles was selected that contains the typical peak power demand in the cycle, i.e., [50-500], as presented in Fig. \ref{test}. The experimental results are shown in Fig.\ref{experiment_1} and Fig. \ref{experiment_2}. The changes of current, voltage and SOC of battery and supercapacitor in the rule-based method and the proposed method are analyzed and compared in the partial sections of driving cycle LA92 and driving cycle NYCC.
+
+
+%采样频率为10Hz
+
+\subsection{results and analysis}
+
+\begin{figure}[ht]
+\centering  %图片全局居中
+\subfigure [] {
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/LA921.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/LA924.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/LA923.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/layerswitch.png}}
+\caption{The comparison of proposed stratrgy and rule based method on LA92 dynamometer driving schedule. (a) SOC of supercapacitors profiles. (b) Voltage of supercapacitors profiles. (c) Current of batteries profiles. (d) Variation of decomposition layers in response to load current and supercapacitor voltage variations.}
+\label{experiment_1}
+\end{figure}
+
+\begin{figure}[ht]
+\centering  %图片全局居中
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/NYCC1.png}}
+\subfigure[]{
+\label{Fig.sub.2}
+\includegraphics[width=6cm]{./imagesrc/NYCC4.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/NYCC3.png}}
+\subfigure[]{
+\label{Fig.sub.1}
+\includegraphics[width=6cm]{./imagesrc/layerswitch.png}}
+\caption{The comparison of proposed stratrgy and rule based method on the New York city cycle (NYCC). (a) SOC of supercapacitors profiles. (b) Voltage of supercapacitors profiles. (c) Current of batteries profiles. (d) Variation of decomposition layers in response to load current and supercapacitor voltage variations.}
+\label{experiment_2}
+\end{figure}
+
+
+% 实验结果如图所示。
+The experimental results are shown in Fig. \ref{experiment_1} and Fig. \ref{experiment_2}. 
+%图7描述的是本文所提方法和基于规则的方法在工况LA92上的性能，其中在电池和超级电容的输出电流、电压、SOC 等方面进行了比较。
+the performance of the proposed strategy and rule-based method on driving cycle LA92 is depiced in Fig. \ref{experiment_1}, where the current, voltage, SOC, etc. of battery and supercapacitor are compared.
+%图8描述的是两种方法在经常停车和启动的工况NYCC 上的性能。 
+Figure 8 depicts the performance of two methods on driving cycle NYCC for frequent shutdown and start-up conditions.
+
+%图7展示了所提策略和基于规则的方法在驾驶工况 LA92上的对比。
+%Fig. \ref{experiment_1} shows a comparison of the proposed strategy and the rule-based approach on driving cycle LA92.
+%根据图7中两种方法的的电池电流可知，本文所提方法分配给电池的电流的频率更低。在负载需求变化较为平稳处电池提供的电流更大，而在负载需求的尖峰处电池提供的电流更小，并且波动也更加平缓。
+According to battery current of the two methods in Fig. \ref{experiment_1}, the frequency of the current allocated to the battery by the method proposed herein is lower. The battery provides more current when the load demand changes more smoothly, while the battery provides less current and more gradual fluctuations at the peak of the load demand.
+%根据图中超级电容的电流可知，本文方法分配的超级电容电流在负载需求变化较为平稳处更小，超级电容更多的承担了负载需求瞬时变化的高频成分。
+According to the current of supercapacitor in the figure, the supercapacitor current distributed by the proposed strategy is smaller at the point where the load demand changes more smoothly, and the supercapacitor bears more high-frequency components of the instantaneous change of the load demand.
+%显然，超级电容作为能量缓冲的角色，在负载需求变化平缓时主要由电池进行供能，在负载需求急剧变化时，其中的高频成分主要由超级电容承担。
+Obviously, supercapacitor acts as an energy buffer. When the load demand changes gently, it is mainly powered by battery. When the load demand changes drastically, the high frequency component is mainly carried by supercapacitor. The waveform of the current assigned to supercapacitor in proposed strategy is sharper and more frequent.
+%图中在所提方法中，超级电容的 SOC 稳定在0.77左右，能持续的对负载中的高频成分进行补偿，而在基于规则的方法中，超级电容的 SOC 在缓慢的下降，因此本文方法对超级电容的使用更加合理和充分，从而更有效的保护了电池。同时，本文方法的总线电压整体的波动较小。
+In the proposed strategy, the SOC of supercapacitor is stable at around 0.77, which can continuously compensate the high frequency components in the load demand power. In the rule-based method, the SOC of supercapacitor is slowly decreasing, hence the proposed strategy in this paper is more reasonable and sufficient for the use of supercapacitor, thus more effectively protecting the battery. At the same time, it can be seen that the overall fluctuation of the bus voltage of the proposed strategy is small.
+ 
+ %NYCC 是典型的经常停车和启动的工况。图8展示了所提策略在工况 NYCC上的情况。可以看到超级电容的 SOC 稳定在0.77左右，而基于规则的方法的超级电容的 SOC 在缓慢的下降。
+Driving cycle NYCC is a typical condition of frequent parking and start-up. Fig. \ref{experiment_2} shows the proposed strategy in the case of NYCC. It can be seen that the SOC of the supercapacitor is stable at around 0.85, while the SOC of the supercapacitor based on the rule-based method is slowly decreasing.
+%整体上来讲，在满足负载需求的情况下，本文所提方法在电池电流的分配、超级电容的使用率、超级电容 SOC 的稳定程度上都更优秀。
+On the whole, the method proposed in this paper is better in the distribution of battery current, the utilization rate of supercapacitor, and the stability of supercapacitor SOC in the case of meeting the load demand.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+%未来：采用优化算法优化电池和超级电容的阈值划分，并增加维度
+We proposed and experimentally verified a real-time adaptive frequency split strategy for a hybrid battery supercapacitor system in this paper. The experimental results show that the battery and the battery are properly supplied in a specified range by analyzing the SOC of the battery and the supercapacitor by a rule-based method and using a specific number of wavelet decomposition. The battery mainly meets the part of the power demand that changes slowly, and the super capacitor quickly responds to the probability of abrupt changes. The advantage of our proposed method is to consider the SOC of the battery capacitor for specific wavelet decomposition operations. The calculation is simple and real-time adaptive power distribution of HESS is realized, while effectively protecting the battery. Future work will focus on the full-scale onboard implementation of the proposed EMS and dual-source hybridization of the electric vehicle.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+%\supplementary{The following are available online at \linksupplementary{s1}, Figure S1: title, Table S1: title, Video S1: title.}
+
+% Only for the journal Methods and Protocols:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following are available at \linksupplementary{s1}, Figure S1: title, Table S1: title, Video S1: title. A supporting video article is available at doi: link.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used “conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing—original draft preparation, X.X.; writing—review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y.”, please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work reported.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\funding{Please add: ``This research received no external funding'' or ``This research was funded by NAME OF FUNDER grant number XXX.'' and  and ``The APC was funded by XXX''. Check carefully that the details given are accurate and use the standard spelling of funding agency names at \url{https://search.crossref.org/funding}, any errors may affect your future funding.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+\abbreviations{The following abbreviations are used in this manuscript:\\
+
+\noindent 
+\begin{tabular}{@{}ll}
+MDPI & Multidisciplinary Digital Publishing Institute\\
+DOAJ & Directory of open access journals\\
+TLA & Three letter acronym\\
+LD & linear dichroism
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: internal bibliography
+%=====================================
+\reftitle{References}
+\begin{thebibliography}{999}
+% Reference 1
+\bibitem[Cao,J.(2011)]{IEEEhowto:intro1}
+Cao,J., Emadi,A. Batteries need electronics. {\em IEEE Industrial electronics magazine} {\bf 2011}, {\em 5}, 27-35, doi:xxxxx.
+\bibitem{IEEEhowto:intro2}
+H. Rahimi-Eichi, U. Ojha and F. Baronti, Battery Management System: An Overview of Its Application in the Smart Grid and Electric Vehicles. {\em IEEE Industrial Electronics Magazine }. 2013, 7(2):4-16.
+\bibitem{IEEEhowto:intro3}
+E. Karden, S. Ploumen and B. Fricke. Energy storage devices for future hybrid electric vehicles. {\em Journal of Power Sources}, 2007, 168(1):2-11.
+\bibitem{IEEEhowto:intro4}
+J. Zheng, T. Jow, and M. Ding, Hybrid power sources for pulsed current applications.  {\em IEEE transactions on aerospace and electronic systems}, 2001, 37(1): 288-292.
+\bibitem{IEEEhowto:intro5}
+J. Moreno, M. Ortuzar, and J. Dixon, Energy management system for a hybrid electric vehicle using ultracapacitors and neural networks, {\em IEEE transactions on Industrial Electronics}, 2006, 53(2): 614-623.
+\bibitem{IEEEhowto:intro6}
+M. Camara, H. Gualous, F. Gustin and A. Berthon, Design and new control of DC/DC converters to share energy between supercapacitor and battery in hybrid vehicles, {\em IEEE Transactions on Vehicular Technology}, 2008, 57(5): 2721-2735.
+\bibitem{IEEEhowto:intro7}
+Z. Song, J. Li and X. Han. Multi-objective optimization of a semi-active battery/supercapacitor energy storage system for electric vehicles. {\em Applied Energy}, 2014, 135: 212-224.
+\bibitem{IEEEhowto:intro8}
+H. Liu, Z. Wang and J. Cheng. Improvement on the cold cranking capacity of commercial vehicle by using supercapacitor and lead-acid battery hybrid. {\em IEEE Transactions on Vehicular Technology}, 2009, 58(3): 1097-1105.
+\bibitem{IEEEhowto:intro9}
+R. Dougal, S. Liu and R. White. Power and life extension of battery-ultracapacitor hybrids. {\em IEEE Transactions on components and packaging technologies}, 2002, 25(1): 120-131.
+\bibitem{IEEEhowto:intro10}
+J. Zheng, T. Jow and M. Ding. Hybrid power sources for pulsed current applications. {\em IEEE transactions on aerospace and electronic systems}, 2001, 37(1): 288-292.
+\bibitem{IEEEhowto:intro11}
+Z. Amjadi and S. Williamson. Power electronics based solutions for plug in hybrid electric vehicle energy storage and management systems. {\em IEEE Transactions on Industrial Electronics}, 2010, 57(2): 608-616.
+\bibitem{IEEEhowto:intro12}
+J. P. Trovao, P. G. Pereirinha and H. M. Jorge. A multi-level energy management system for multi-source electric vehicles-an integrated rule-based meta-heuristic approach. {\em Applied Energy}, 2013, 105: 304-318.
+\bibitem{IEEEhowto:intro13}
+M. Ortuzar, J. Moreno and J. Dixon. Ultracapacitor-based auxiliary energy system for an electric vehicle: implementation and evaluation. {\em IEEE Transactions on industrial electronics}, 2007, 54(4): 2147-2156.
+\bibitem{IEEEhowto:intro14}
+H. He, R. Xiong and K. Zhao. Energy management strategy research on a hybrid power system by hardware-in-loop experiments. {\em Applied Energy}, 2013, 112: 1311-1317.
+\bibitem{IEEEhowto:intro15}
+R. Wang, J. Peng and Y. Zhou. Primal-dual Interior-point Method based Energy Distribution Optimization for Semi-active Hybrid Energy Storage System. {\em IFAC-PapersOnLine}, 2017, 50(1): 14477-14482.
+\bibitem{IEEEhowto:intro16}
+Z. Song, H. Hofmann and J. Li. Energy management strategies comparison for electric vehicles with hybrid energy storage system. {\em Applied Energy}, 2014, 134: 321-331.
+\bibitem{IEEEhowto:intro18}
+W. Jing, C. H. Lai and S. H. Wong. Battery-supercapacitor hybrid energy storage system in standalone DC microgrids: areview. {\em IET Renewable Power Generation}, 2016, 11(4): 461-469.
+\bibitem{IEEEhowto:intro19}
+B. Robyns, A. Davigny and C. Saudemont. Methodologies for supervision of hybrid energy sources based on storage systems-A survey. {\em Mathematics and Computers in Simulation}, 2013, 91: 52-71.
+%  20 和 7重复了
+%\bibitem{IEEEhowto:intro20}
+%Z. Song, J. Li and X. Han. Multi-objective optimization of a semi-active battery/supercapacitor energy storage system for electric vehicles. {\em Applied Energy}, 2014, 135: 212-224.
+\bibitem{IEEEhowto:intro20}
+F. Adrian, B. Seddik, M. Iulian, B. A. Iuliana and R. Axel. Adaptive frequency-separation-based energy management system for electric vehicles. {\em Journal of Power Sources}, 2015, 280: 410-421.
+
+\bibitem{IEEEhowto:intro24}
+L. Qi, C. W. Rong, L. Z. Xang, L. Ming and M. Lei. Development of energy management system based on a power sharing strategy for a fuel cell-battery-supercapacitor hybrid tramway. {\em Journal of Power Sources}, 2015, 279: 267-280.
+
+\bibitem{IEEEhowto:intro21}
+J. P. F. Trovao, V. D. N.  Santos and C. H. Antunes. A real-time energy management architecture for multisource electric vehicles. {\em IEEE Transactions On Industrial Electronics}, 2015, 62(5): 3223-3233.
+\bibitem{IEEEhowto:intro22}
+Z. Liang, Z. Xin and T. Yi. Intelligent energy management for parallel HEV based on driving cycle identification using SVM. {\em International workshop on IK formation security and application}. 2009: 457-460.
+\bibitem{IEEEhowto:intro23}
+J. Shen and A. Khaligh. A supervisory energy management control strategy in a battery/ultracapacitor hybrid energy storage system. {\em IEEE Transactions on Transportation Electrification}, 2015, 1(3): 223-231.
+\bibitem{IEEEhowto:intro26}
+M. E. Choi, S. W. Kim, and S. W. Seo. Energy Management Optimization in a Battery/Supercapacitor Hybrid Energy Storage System. {\em  IEEE Trans. Smart Grid}, 2012, 3(1):463-472.
+\bibitem{IEEEhowto:intro27}
+M. E. Choi, S. W. Kim, and S. W. Seo. Energy Management Optimization in a Battery/Supercapacitor Hybrid Energy Storage System. {\em  IEEE Trans. Smart Grid}, 2012, 3(1):463-472.
+\bibitem{IEEEhowto:intro28}
+M. E. Choi, S. W. Kim, and S. W. Seo. Energy Management Optimization in a Battery/Supercapacitor Hybrid Energy Storage System. {\em  IEEE Trans. Smart Grid}, 2012, 3(1):463-472.
+\bibitem{IEEEhowto:intro29}
+M. E. Choi, S. W. Kim, and S. W. Seo. Energy Management Optimization in a Battery/Supercapacitor Hybrid Energy Storage System. {\em  IEEE Trans. Smart Grid}, 2012, 3(1):463-472.
+%小波分解part
+\bibitem{IEEEhowto:wavelet1}
+P. L. Mao, R. K. Aggarwal. A novel approach to the classification of the transient phenomena in power transformers using combined wavelet transform and neural network. {\em IEEE Transactions on Power Delivery}, 2001, 16(4): 654-660.
+\bibitem{IEEEhowto:wavelet2}
+H.~Kopka and P.~W. Daly, {\em A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+%MATLAB Wavelet Toolbox User’s Guide. Available from:  http://www.mathworks.com/access/helpdesk/help/pdf_doc/  wavelet/wavelet_ug.pdf [Online]
+\bibitem{IEEEhowto:wavelet3}
+Q. Li, W. Chen and Z. Liu. Development of energy management system based on a power sharing strategy for a fuel cell-battery-supercapacitor hybrid tramway. {\em Journal of Power Sources}, 2015, 279: 267-280.
+\bibitem{IEEEhowto:wavelet4}
+O. Erdinc, B. Vural, M. Uzunoglu. A wavelet-fuzzy logic based energy management strategy for a fuel cell/battery/ultra-capacitor hybrid vehicular power system. {\em Journal of Power Sources}, 2009, 194(1):369-380.
+\bibitem{IEEEhowto:wavelet5}
+O. Erdinc, B. Vural and M. Uzunoglu. Modeling and analysis of an FC/UC hybrid vehicular power system using a wavelet-fuzzy logic based load sharing and control algorithm. {\em International Journal of Hydrogen Energy}, 2009, 34(12):5223-5233.
+\bibitem{IEEEhowto:wavelet6}
+X. Zhang, C. C. Mi and A. Masrur. Wavelet-transform-based power management of hybrid vehicles with multiple on-board energy sources including fuel cell, battery and ultracapacitor. {\em Journal of Power Sources}, 2008, 185(2):1533-1543.
+\end{thebibliography}
+
+% The following MDPI journals use author-date citation: Arts, Econometrics, Economies, Genealogy, Humanities, IJFS, JRFM, Laws, Religions, Risks, Social Sciences. For those journals, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%=====================================
+% References, variant B: external bibliography
+%=====================================
+%\externalbibliography{yes}
+%\bibliography{your_external_BibTeX_file}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+\sampleavailability{Samples of the compounds ...... are available from the authors.}
+
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
